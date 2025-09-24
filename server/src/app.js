@@ -9,6 +9,7 @@ import swaggerUi from 'swagger-ui-express';
 import { swaggerDoc } from './shared/doc/swagger.doc.js';
 import { notFoundMiddleware } from './shared/middlewares/notfound.middleware.js';
 import { errorMiddleware } from './shared/middlewares/error.middleware.js';
+import { healthRoutes } from './modules/health/health.route.js';
 
 // create express app
 const app = express();
@@ -16,6 +17,9 @@ const app = express();
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
+
+// routes
+app.use('/health', healthRoutes);
 
 // document
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
