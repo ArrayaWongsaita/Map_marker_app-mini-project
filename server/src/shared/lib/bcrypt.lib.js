@@ -1,4 +1,4 @@
-// bcrypt library for hashing and verifying passwords
+// src/shared/lib/bcrypt.lib.js
 
 import bcrypt from 'bcrypt';
 import { env } from '../config/env.config.js';

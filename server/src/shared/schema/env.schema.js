@@ -1,3 +1,5 @@
+// server/src/shared/schema/env.schema.js
+
 import z from 'zod';
 
 export const envSchema = z.object({

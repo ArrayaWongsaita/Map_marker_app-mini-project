@@ -1,3 +1,5 @@
+// src/modules/health/health.service.js
+
 import { prisma } from '../../shared/config/prisma.config.js';
 import { ServiceUnavailableError } from '../../shared/utils/error.util.js';
 

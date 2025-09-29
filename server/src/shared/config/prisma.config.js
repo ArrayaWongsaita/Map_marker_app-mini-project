@@ -1,5 +1,5 @@
+// server/src/shared/config/prisma.config.js
+
 import { PrismaClient } from '../../../generated/prisma/index.js';
 
-const prisma = new PrismaClient();
-
-export { prisma };
+export const prisma = new PrismaClient();

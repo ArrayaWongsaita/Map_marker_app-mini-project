@@ -1,7 +1,8 @@
 import { OpenApiGeneratorV3 } from '@asteasolutions/zod-to-openapi';
 import { healthRegistry } from '../../modules/health/doc/health.doc.js';
+import { authRegistry } from '../../modules/auth/doc/auth.doc.js';
 
-const registries = [healthRegistry];
+const registries = [healthRegistry, authRegistry];
 const definitions = registries.map((r) => r.definitions).flat();
 
 const generator = new OpenApiGeneratorV3(definitions);

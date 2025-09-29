@@ -1,3 +1,5 @@
+// src/shared/schema/maker.schema.js
+
 import { z } from 'zod';
 import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi';
 

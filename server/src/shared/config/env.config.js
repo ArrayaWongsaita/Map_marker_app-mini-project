@@ -1,3 +1,5 @@
+// server/src/shared/config/env.config.js
+
 import { envSchema } from '../schema/env.schema.js';
 import * as dotenv from 'dotenv';
 dotenv.config();
