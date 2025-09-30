@@ -5,11 +5,11 @@ export const validateBody = (schema) => (req, res, next) => {
 };
 
 export const validateQuery = (schema) => (req, res, next) => {
-  req.query = schema.parse(req.query);
+  schema.parse(req.query);
   next();
 };
 
 export const validateParams = (schema) => (req, res, next) => {
-  req.params = schema.parse(req.params);
+  schema.parse(req.params);
   next();
 };

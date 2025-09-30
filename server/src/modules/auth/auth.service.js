@@ -2,6 +2,7 @@
 import { prisma } from '../../shared/config/prisma.config.js';
 import {
   ConflictError,
+  NotFoundError,
   UnauthorizedError,
 } from '../../shared/utils/error.util.js';
 import { hashPassword, comparePassword } from '../../shared/lib/bcrypt.lib.js';
@@ -37,5 +38,16 @@ export const authService = {
 
     delete user.password;
     return { user, token };
+  },
+
+  async getUserProfile(userId) {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!user) throw NotFoundError('User not found');
+
+    delete user.password;
+    return user;
   },
 };

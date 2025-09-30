@@ -42,5 +42,14 @@ authRegistry.registerPath({
   responses: {},
 });
 
+// get profile
+authRegistry.registerPath({
+  method: 'get',
+  path: '/auth/profile',
+  tags: ['Auth'],
+  security: [{ BearerAuth: [] }],
+  responses: {},
+});
+
 authRegistry.register('Signup Request', signupRequestSchema);
 authRegistry.register('Signin Request', signinRequestSchema);

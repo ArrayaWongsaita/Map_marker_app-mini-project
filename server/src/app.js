@@ -12,6 +12,7 @@ import { healthRoutes } from './modules/health/health.route.js';
 import { authRoutes } from './modules/auth/auth.route.js';
 import { defaultErrorHandler } from './shared/middlewares/default-error.middleware.js';
 import { zodErrorHandler } from './shared/middlewares/zod-error.middleware.js';
+import { markerRouter } from './modules/markers/marker.route.js';
 
 // create express app
 const app = express();
@@ -24,6 +25,7 @@ app.use(express.json());
 // routes
 app.use('/health', healthRoutes);
 app.use('/auth', authRoutes);
+app.use('/markers', markerRouter);
 
 // document
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));

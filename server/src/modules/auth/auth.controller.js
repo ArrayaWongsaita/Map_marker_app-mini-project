@@ -20,4 +20,11 @@ export const authController = {
       data,
     });
   },
+  async getProfile(req, res) {
+    const data = await authService.getUserProfile(req.user.id);
+    return res.json({
+      status: 'success',
+      data,
+    });
+  },
 };
