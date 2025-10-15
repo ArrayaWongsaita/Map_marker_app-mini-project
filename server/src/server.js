@@ -1,7 +1,6 @@
-// src/server.js
-
+// server/src/server.js
 import app from './app.js';
-import { env } from './shared/config/env.config.js';
+import { env } from './configs/env.config.js';
 
 app.listen(env.PORT, () => {
   // show a message when the server is running
