@@ -1,7 +1,7 @@
 // server/src/services/health.service.js
 
 import { prisma } from '../configs/prisma.config.js';
-import { ServiceUnavailableError } from '../utils/error.util.js';
+import createHttpError from 'http-errors';
 
 export const healthService = {
   async checkHealth() {
@@ -9,7 +9,7 @@ export const healthService = {
     try {
       await prisma.$queryRaw`SELECT 1`;
     } catch {
-      throw ServiceUnavailableError();
+      throw new createHttpError.ServiceUnavailable();
     }
 
     const healthData = {

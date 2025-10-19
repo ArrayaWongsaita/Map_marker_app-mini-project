@@ -1,7 +1,7 @@
 // services/marker.service.js
 
 import { prisma } from '../configs/prisma.config.js';
-import { NotFoundError } from '../utils/error.util.js';
+import createHttpError from 'http-errors';
 
 export const markerService = {
   // delete a marker
@@ -10,7 +10,7 @@ export const markerService = {
       where: { id: markerId, userId },
     });
 
-    if (!marker) throw NotFoundError('Marker not found');
+    if (!marker) throw new createHttpError.NotFound('Marker not found');
 
     await prisma.marker.delete({
       where: { id: markerId },
@@ -23,7 +23,7 @@ export const markerService = {
       where: { id: markerId, userId },
     });
 
-    if (!marker) throw NotFoundError('Marker not found');
+    if (!marker) throw new createHttpError.NotFound('Marker not found');
 
     const updatedMarker = await prisma.marker.update({
       where: { id: markerId },
@@ -43,11 +43,11 @@ export const markerService = {
   },
   // Fetch all markers for a user with optional search
   getAllMarkers: async (userId, { search }) => {
-    const whereClause = {
+    const where = {
       userId,
     };
     if (search) {
-      whereClause.OR = [
+      where.OR = [
         {
           title: {
             contains: search,
@@ -62,7 +62,7 @@ export const markerService = {
     }
 
     const markers = await prisma.marker.findMany({
-      where: whereClause,
+      where: where,
       orderBy: {
         createdAt: 'desc',
       },

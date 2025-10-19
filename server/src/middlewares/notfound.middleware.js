@@ -1,8 +1,6 @@
 // server/src/middlewares/notfound.middleware.js
-import error from 'http-errors';
-import { NotFoundError } from '../utils/error.util.js';
+import createHttpError from 'http-errors';
 
 export const notFoundMiddleware = () => {
-  throw NotFoundError('Route not found');
-  //throw new error.NotFound('Route not found');
+  throw new createHttpError.NotFound('Route not found');
 };
