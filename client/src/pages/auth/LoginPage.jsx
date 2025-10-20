@@ -1,4 +1,3 @@
-// src/pages/auth/LoginPage.jsx
 import AuthCard from '@/components/cards/AuthCard';
 
 export default function LoginPage() {

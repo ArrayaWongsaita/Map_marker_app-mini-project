@@ -11,8 +11,7 @@ export const authMiddleware = (req, res, next) => {
   }
 
   const token = authHeader.split(' ')[1];
-
-  const decoded = verifyToken('token');
+  const decoded = verifyToken(token);
   req.user = decoded;
 
   next();
