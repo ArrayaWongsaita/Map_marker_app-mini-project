@@ -11,17 +11,20 @@ import {
 } from 'react-leaflet';
 import MarkerDetail from './MarkerDetail';
 import { useLoaderData } from 'react-router';
+import MapAction from './MapAction';
 
 export default function Map() {
-  const { markers } = useLoaderData();
+  const data = useLoaderData();
+  const markers = data?.markers || [];
 
   return (
     <div>
       <MapContainer
         className="w-full  h-[80vh] "
-        center={[markers[0].lat, markers[0].lng]}
+        center={[markers[0]?.lat || 0, markers[0]?.lng || 0]}
         zoom={11}
       >
+        <MapAction />
         <LayersControl position="topright">
           {/* tile Layers */}
           {tileLayers.map((layer, index) => (

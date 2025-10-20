@@ -21,14 +21,21 @@ export const router = createBrowserRouter([
       { path: ROUTES.LOGIN, element: <LoginPage /> },
       { path: ROUTES.REGISTER, element: <RegisterPage /> },
       // makers
+      { path: ROUTES.CREATE_MARKER, element: <CreateMarkerPage /> },
       {
         path: ROUTES.MARKERS,
         element: <MarkersPage />,
         loader: authGuard({ loader: markerService.getAllMarkers }),
         hydrateFallbackElement: <div>Loading markers...</div>,
       },
-      { path: ROUTES.CREATE_MARKER, element: <CreateMarkerPage /> },
-      { path: ROUTES.UPDATE_MARKER_PATH, element: <UpdateMarkerPage /> },
+      {
+        path: ROUTES.UPDATE_MARKER_PATH,
+        element: <UpdateMarkerPage />,
+        loader: authGuard({
+          loader: ({ params: { id } }) => markerService.getMarkerById(id),
+        }),
+        hydrateFallbackElement: <div>Loading markers...</div>,
+      },
       // not found
       { path: '*', element: <Navigate to={ROUTES.HOME} replace /> },
     ],

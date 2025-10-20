@@ -4,8 +4,23 @@ import { Button } from '../ui/button';
 import { Link } from 'react-router';
 import { ROUTES } from '@/constants/router.constant';
 import ConfirmButton from '../buttons/ConfirmButton';
+import { markerService } from '@/services/marker.service';
+import { toast } from 'sonner';
+import { useRevalidator } from 'react-router';
 
 export default function MarkerPopup({ marker }) {
+  const revalidate = useRevalidator();
+
+  const handleDelete = async () => {
+    try {
+      await markerService.deleteMarker(marker.id);
+      await revalidate.revalidate();
+      toast.success('Marker deleted successfully.');
+    } catch {
+      toast.error('Failed to delete marker. Please try again.');
+    }
+  };
+
   return (
     <Popup>
       <div className="p-2 min-w-[200px]">
@@ -34,7 +49,7 @@ export default function MarkerPopup({ marker }) {
                 Edit
               </Link>
             </Button>
-            <ConfirmButton title="Delete Marker">
+            <ConfirmButton title="Delete Marker" onConfirm={handleDelete}>
               <Button variant="destructive" asChild>
                 <div>Delete</div>
               </Button>
