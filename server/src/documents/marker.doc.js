@@ -10,6 +10,18 @@ import {
 
 export const markerRegistry = new OpenAPIRegistry();
 
+// get marker by id
+markerRegistry.registerPath({
+  method: 'get',
+  path: '/markers/{id}',
+  tags: ['Markers'],
+  security: [{ BearerAuth: [] }],
+  request: {
+    params: markerIdSchema,
+  },
+  responses: {},
+});
+
 // delete marker 204
 markerRegistry.registerPath({
   method: 'delete',

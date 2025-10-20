@@ -1,24 +1,44 @@
 // client/src/components/maps/Map.jsx
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import { tileLayers } from '@/constants/map.constant';
+
+import {
+  LayerGroup,
+  LayersControl,
+  MapContainer,
+  Marker,
+  Popup,
+  TileLayer,
+} from 'react-leaflet';
+import MarkerDetail from './MarkerDetail';
+import { useLoaderData } from 'react-router';
 
 export default function Map() {
+  const { markers } = useLoaderData();
+
   return (
     <div>
       <MapContainer
-        className="w-full h-screen"
-        center={[51.505, -0.09]}
-        zoom={6}
+        className="w-full  h-[80vh] "
+        center={[markers[0].lat, markers[0].lng]}
+        zoom={11}
       >
-        <TileLayer
-          attribution={`&copy; CNES, Distribution Airbus DS, © Airbus DS, © PlanetObserver (Contains Copernicus Data) | &copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors`}
-          url="https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}{r}.{ext}"
-          ext="jpg"
-        />
-        <Marker position={[51.505, -0.09]}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
+        <LayersControl position="topright">
+          {/* tile Layers */}
+          {tileLayers.map((layer, index) => (
+            <LayersControl.BaseLayer
+              checked={layer.checked}
+              name={layer.name}
+              key={index}
+            >
+              <TileLayer attribution={layer.attribution} url={layer.url} />
+            </LayersControl.BaseLayer>
+          ))}
+          {/* Markers Layer */}
+          {markers.map((marker) => (
+            <MarkerDetail key={marker.id} marker={marker} />
+          ))}
+          ;
+        </LayersControl>
       </MapContainer>
     </div>
   );

@@ -17,6 +17,13 @@ import { authMiddleware } from '../middlewares/auth.middleware.js';
 
 const markerRouter = Router();
 
+markerRouter.get(
+  '/:id',
+  validateParams(markerIdSchema),
+  authMiddleware,
+  markerController.getMarkerById
+);
+
 markerRouter.delete(
   '/:id',
   validateParams(markerIdSchema),

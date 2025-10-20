@@ -13,7 +13,7 @@ export default function FormFieldButton({
     <Button disabled={loading || disabled} className="w-full" {...props}>
       <Activity mode={loading ? 'visible' : 'hidden'}>
         <span className="flex items-center justify-center">
-          <Spinner className="mr-2" />
+          <Spinner className="mr-2 text-white" />
           {children}...
         </span>
       </Activity>
