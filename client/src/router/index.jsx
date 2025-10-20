@@ -25,7 +25,15 @@ export const router = createBrowserRouter([
       {
         path: ROUTES.MARKERS,
         element: <MarkersPage />,
-        loader: authGuard({ loader: markerService.getAllMarkers }),
+        loader: authGuard({
+          loader: (data) => {
+            const searchParams = new URLSearchParams(
+              data.request.url.split('?')[1]
+            );
+
+            return markerService.getAllMarkers(searchParams);
+          },
+        }),
         hydrateFallbackElement: <div>Loading markers...</div>,
       },
       {

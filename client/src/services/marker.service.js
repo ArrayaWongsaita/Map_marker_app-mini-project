@@ -21,8 +21,13 @@ export const markerService = {
     const response = await publicAxiosInstance.get(`/markers/${id}`);
     return response.data;
   },
-  getAllMarkers: async () => {
-    const response = await publicAxiosInstance.get('/markers');
+  getAllMarkers: async (searchParams) => {
+    const search = searchParams.get('search');
+    const response = await publicAxiosInstance.get('/markers', {
+      params: {
+        search,
+      },
+    });
     return response.data;
   },
 };

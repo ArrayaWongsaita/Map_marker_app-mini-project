@@ -6,5 +6,5 @@ import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi';
 extendZodWithOpenApi(z);
 
 export const querySchema = z.object({
-  search: z.string().min(2).max(100).optional(),
+  search: z.string().min(1).max(100).optional(),
 });
