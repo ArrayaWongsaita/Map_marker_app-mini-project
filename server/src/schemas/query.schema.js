@@ -1,0 +1,10 @@
+// server/src/schemas/query.schema.js
+
+import z from 'zod';
+import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi';
+
+extendZodWithOpenApi(z);
+
+export const querySchema = z.object({
+  search: z.string().min(1).max(100).optional(),
+});
