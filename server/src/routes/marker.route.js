@@ -17,6 +17,20 @@ import {
 
 const markerRouter = Router();
 
+markerRouter.get(
+  '/:id',
+  validateParams(markerIdSchema),
+  authMiddleware,
+  markerController.getMarkerById
+);
+
+markerRouter.delete(
+  '/:id',
+  validateParams(markerIdSchema),
+  authMiddleware,
+  markerController.deleteMarker
+);
+
 markerRouter.patch(
   '/:id',
   validateParams(markerIdSchema),

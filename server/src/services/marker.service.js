@@ -2,6 +2,30 @@ import { prisma } from '../configs/prisma.config.js';
 import createHttpError from 'http-errors';
 
 export const markerService = {
+  getMarkerById: async (userId, markerId) => {
+    const marker = await prisma.marker.findUnique({
+      where: { id: markerId, userId },
+    });
+
+    if (!marker) throw new createHttpError.NotFound('Marker not found');
+
+    return { marker };
+  },
+
+  deleteMarker: async (userId, markerId) => {
+    const marker = await prisma.marker.findUnique({
+      where: { id: markerId, userId },
+    });
+
+    if (!marker) throw new createHttpError.NotFound('Marker not found');
+
+    await prisma.marker.delete({
+      where: { id: markerId },
+    });
+
+    return {};
+  },
+
   // updateMarker() {},
   updateMarker: async (userId, markerId, markerData) => {
     const marker = await prisma.marker.findUnique({

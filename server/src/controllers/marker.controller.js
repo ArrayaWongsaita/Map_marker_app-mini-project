@@ -1,6 +1,23 @@
 import { markerService } from '../services/marker.service.js';
 
 export const markerController = {
+  async getMarkerById(req, res) {
+    const data = await markerService.getMarkerById(
+      req.user.userId,
+      req.params.id
+    );
+    res.json({
+      status: 'success',
+      ...data,
+    });
+  },
+
+  async deleteMarker(req, res) {
+    await markerService.deleteMarker(req.user.userId, req.params.id);
+
+    res.status(204).end();
+  },
+
   async updateMarker(req, res) {
     const data = await markerService.updateMarker(
       req.user.userId,
