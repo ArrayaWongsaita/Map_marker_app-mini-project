@@ -1,6 +1,34 @@
 import { prisma } from '../configs/prisma.config.js';
+import createHttpError from 'http-errors';
 
 export const markerService = {
+  // updateMarker() {},
+  updateMarker: async (userId, markerId, markerData) => {
+    const marker = await prisma.marker.findUnique({
+      where: { id: markerId, userId },
+    });
+
+    if (!marker) throw new createHttpError.NotFound('Marker not found');
+
+    const updatedMarker = await prisma.marker.update({
+      where: { id: markerId },
+      data: markerData,
+    });
+
+    return { marker: updatedMarker };
+  },
+
+  createMarker: async (userId, markerData) => {
+    const marker = await prisma.marker.create({
+      data: {
+        userId,
+        ...markerData,
+      },
+    });
+
+    return { marker };
+  },
+
   getAllMarkers: async (userId, { search }) => {
     const whereClause = {
       userId,

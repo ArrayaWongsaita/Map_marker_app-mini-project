@@ -1,7 +1,60 @@
 import { OpenAPIRegistry } from '@asteasolutions/zod-to-openapi';
-import { getAllMarkerSchema } from '../dto/marker.dto.js';
+import {
+  createMarkerSchema,
+  getAllMarkerSchema,
+  markerIdSchema,
+  updateMarkerSchema,
+} from '../dto/marker.dto.js';
 
 export const markerRegistry = new OpenAPIRegistry();
+
+// update marker
+
+markerRegistry.registerPath({
+  method: 'patch',
+  path: '/markers/{id}',
+  tags: ['Markers'],
+  security: [{ BearerAuth: [] }],
+  request: {
+    params: markerIdSchema,
+    body: {
+      content: {
+        'application/json': {
+          schema: updateMarkerSchema,
+        },
+      },
+    },
+  },
+  responses: {
+    200: {},
+  },
+});
+
+markerRegistry.register('UpdateMarkersRequest', updateMarkerSchema);
+markerRegistry.register('MarkerIdParam', markerIdSchema);
+
+// create marker
+
+markerRegistry.registerPath({
+  method: 'post',
+  path: '/markers',
+  tags: ['Markers'],
+  security: [{ BearerAuth: [] }],
+  request: {
+    body: {
+      content: {
+        'application/json': {
+          schema: createMarkerSchema,
+        },
+      },
+    },
+  },
+  responses: {
+    200: {},
+  },
+});
+
+markerRegistry.register('CreateMarkersRequest', createMarkerSchema);
 
 // get All marker
 
