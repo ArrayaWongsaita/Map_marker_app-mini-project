@@ -6,6 +6,11 @@ import { useForm } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema } from '@/schemas/auth.schema';
+import { authService } from '@/services/auth.service';
+import { toast } from 'sonner';
+import { AxiosError } from 'axios';
+import { useNavigate } from 'react-router';
+import { ROUTES } from '@/constants/router.constant';
 
 const initialState = {
   email: '',
@@ -23,12 +28,18 @@ export default function LoginForm() {
     resolver: zodResolver(loginSchema),
   });
 
+  const navigate = useNavigate();
   const onSubmit = async (data) => {
     try {
-      console.log(data);
-      await new Promise((resolve) => setTimeout(resolve, 10000));
+      await authService.login(data);
+      toast.success('Login successful');
+      navigate(ROUTES.MARKERS);
     } catch (error) {
-      console.log(error);
+      if (error instanceof AxiosError) {
+        toast.error(error.response?.data?.message || 'Login failed');
+        return;
+      }
+      toast.error('Login failed');
     }
   };
 

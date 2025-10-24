@@ -1,3 +1,9 @@
+import Map from '@/components/maps/Map';
+
 export default function MarkersPage() {
-  return <div>MarkersPage</div>;
+  return (
+    <div>
+      <Map />
+    </div>
+  );
 }
